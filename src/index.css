@@ -1,0 +1,47 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+.input-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 30%;
+  margin: 0 auto;
+}
+
+
+.input-container button{
+  background-color: aqua;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 5px blue;
+  cursor: pointer;
+  transition: all 500ms ease-in-out;
+}
+
+.input-container button:hover {
+  background-color: gold;
+  box-shadow: 0 0 5px yellow;
+  scale: 0.9;
+}
+
+.input-container input{
+  border-radius: 5px;
+  transition: all 500ms ease-in-out;
+  padding: 5px;
+}
