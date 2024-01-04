@@ -33,9 +33,9 @@ The credits for this repository are all listed below:
 
 | Credit         | Credit for                                                                            | Associated links                                                                         |
 |--------------- |-------------------------------------------------------------------------------------- |----------------------------------------------------------------------------------------- |
-| Ronnie Denzel  | Creating and working on the repository                                                | <https://github.com/itsbluejelly><br><https://www.linkedin.com/in/ronnie-denzel-0b802929a/>  |
-| Birblewin      | The company responsible for enhancing my knowledge on coding, and for the internship  | <https://github.com/Birblewin><br><https://www.linkedin.com/in/birble-ai-3a73a8250/>         |
-| Dave Gray      | The tutor behind the course, as well as other detailed courses like node and react    | <https://www.youtube.com/@DaveGrayTeachesCode><br><https://github.com/gitdagray>             |
+| Ronnie Denzel  | Creating and working on the repository                                                | <https://github.com/itsbluejelly>  <https://www.linkedin.com/in/ronnie-denzel-0b802929a/>  |
+| Birblewin      | The company responsible for enhancing my knowledge on coding, and for the internship  | <https://github.com/Birblewin>  <https://www.linkedin.com/in/birble-ai-3a73a8250/>         |
+| Dave Gray      | The tutor behind the course, as well as other detailed courses like node and react    | <https://www.youtube.com/@DaveGrayTeachesCode>  <https://github.com/gitdagray>             |
 
 ## Linked Repositories
 

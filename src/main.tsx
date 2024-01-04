@@ -10,6 +10,6 @@ import './index.css'
 // CREATING A ROOT INTO THE DOM
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App>Random name generator</App>
+    <App/>
   </React.StrictMode>,
 )
