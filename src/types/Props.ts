@@ -1,23 +1,18 @@
-// IMPORTING NECESSARY MODULES
-import React from "react"
+// IMPORTING VARIOUS TYPES
+import {ReactNode} from "react"
+import {AppFormData} from "./Types"
 
-// A TYPE FOR THE HEADING PROPS
-export type HeadingProps = { title: string }
-
-// A TYPE FOR THE SECTION PROPS
-export type SectionProps = {
-    title ?: string,
-    children: React.ReactNode
-}
-
-// A TYPE FOR THE COUNTER PROPS
+// A TYPE FOR THE COUNTERPROPS
 export type CounterProps = {
-    children: React.ReactNode,
-    handleCount: React.Dispatch<React.SetStateAction<number>>
+    children: ReactNode,
+    addCount: () => void,
+    subtractCount: () => void,
 }
 
-// A TYPE FOR THE GENERICLIST PROPS
-export type GenericListProps<T> = {
-    items: T[],
-    render: (item: T) => React.ReactNode
+// A TYPE FOR THE FIBONACCIPROPS
+export type FibonacciProps = {
+    children: ReactNode,
+    formData: AppFormData,
+    handleFormData: (e: React.ChangeEvent<HTMLInputElement>) => void
+    inputRef: React.MutableRefObject<HTMLInputElement | null>
 }
