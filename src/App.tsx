@@ -1,73 +1,76 @@
-// IMPORTING DIFFERENT FILES
-    // IMPORTING DIFFERENT MODULES
+// IMPORTING NECESSARY FILES
+    // IMPORTING TYPES
+import {AppState} from "./types/Types"
+import {AppStateReducerAction} from "./types/Types"
+    // IMPORTING ENUMS
+import {APP_STATE_REDUCER_ACTION_TYPE} from "./types/enums"
+    // IMPORTING MODULES
 import React from "react"
-    // IMPORTING DIFFERENT TYPES
-import {UserData, AppFormData, NumberToNumberFunction} from "./types/Types"
-    // IMPORTING DIFFERENT COMPONENTS
+    // IMPORTING COMPONENTS
 import Counter from "./components/Counter"
-import Fibonacci from "./components/Fibonacci"
+import InputBox from "./components/InputBox"
 
-// DECLARING A FUNCTION THAT RETURNS THE APP COMPONENT
+// DECLARING AN INITIAL STATE FOR THE APP STATE
+const initialAppState: AppState = {
+    count: 0,
+    formData: { name: '' }
+}
+
+// DECLARING A REDUCER FUNCTION FOR THE APPSTATE
+function AppStateReducer(state: AppState, action: AppStateReducerAction): AppState{
+    switch(action.type){
+        case APP_STATE_REDUCER_ACTION_TYPE.INCREASE_COUNT:
+            return {...state, count: state.count + 1}
+        case APP_STATE_REDUCER_ACTION_TYPE.DECREASE_COUNT:
+            return {...state, count: state.count - 1}
+        case APP_STATE_REDUCER_ACTION_TYPE.UPDATE_NAME:
+            if(action.payLoad){
+                const {formData} = action.payLoad
+                return {...state, formData}
+            }else{
+                throw new Error("A payload property is required for you to update the name")
+            }
+        default:
+            return state
+    }
+}
+
+// DECLARING A FUNCTION THAT RETURNS AN APP COMPONENT
 export default function App(){
-    // DEFINING STATE
-        // A STATE TO KEEP TRACK OF COUNT VALUE
-    const [count, setCount] = React.useState<number>(0)
-        // A STATE TO KEEP TRACK OF USERS VALUE
-    const [users] = React.useState<UserData[]>([])
-        // A STATE TO KEEP TRACK OF FORM DATA
-    const [formData, setFormData] = React.useState<AppFormData>({ index: 0 })
+    const [{count, formData}, dispatch] = React.useReducer(AppStateReducer, initialAppState)
 
-    // DEFINING REFS
-        // A REF FOR COUNTING THE RENDERS
-    const renders = React.useRef<number>(0)
-        // A REF FOR THE INPUT FIELD FOR THE FIBONACCI COMPONENT
-    const inputRef = React.useRef<HTMLInputElement | null>(null)
-
-    // A USEEFFECT TO KEEP TRACK OF THE USERS
-    React.useEffect(() => {
-        console.log("mounting")
-        console.log(`${users}`)
-
-        return console.log("dismounting")
-    }, [users])
-
-    // A USEEFFECT FOR COUNTING THE RENDERS
-    React.useEffect(() => {renders.current++})
-
-    // A MEMOIZED FUNCTION THAT ADDS UP THE COUNT
-    const addCount: () => void = React.useCallback(() => setCount(prevCount => prevCount + 1), [])
-    const subtractCount: () => void = React.useCallback(() => setCount(prevCount => prevCount - 1), [])
-
-    // A FUNCTION THAT RETURNS THE FIBONACCI VALUE OF A SPECIFIED INDEX
-    const findFibonacci: NumberToNumberFunction = React.useCallback((index: number) => (index < 2) ? index : findFibonacci(index - 1) + findFibonacci(index - 2), [])
-
-    // A FUNCTION THAT HANDLES FORMDATA
+    // DECLARING INCREASE AND DECREASE COUNT FUNCTIONS
+    const increaseCount: () => void = () => dispatch({ type: APP_STATE_REDUCER_ACTION_TYPE.INCREASE_COUNT })
+    const decreaseCount: () => void = () => dispatch({ type: APP_STATE_REDUCER_ACTION_TYPE.DECREASE_COUNT })
+    
     function handleFormData(e: React.ChangeEvent<HTMLInputElement>): void{
-        const {name, value} = e.target
+        try{
+            const {value} = e.target
 
-        setFormData(prevFormData => ({
-            ...prevFormData,
-            [name]: value
-        }))
+            dispatch({
+                type: APP_STATE_REDUCER_ACTION_TYPE.UPDATE_NAME,
+                payLoad: { formData: { "name": value }}
+            })
+        }catch(error){
+            if(error){
+                console.warn(`${(error as Error).name}: ${(error as Error).message}`)
+            }
+        }
     }
 
-    // A MEMOIZED VALUE TO DISPLAY THE CALCULATED FIBONACCI NUMBER
-    const fibonacciValue: number = React.useMemo(() => findFibonacci(formData.index), [findFibonacci, formData.index])
-
-    return (
-        <div className="App">
+    return(
+        <div>
+            {/* COUNTER COMPONENT TO HOLD COUNTER */}
             <Counter
-                addCount={addCount}
-                subtractCount={subtractCount}
-            >Count is {count}</Counter>
+                increaseCount={increaseCount}
+                decreaseCount={decreaseCount}
+            >Count is: {count}</Counter>
 
-            <Fibonacci
+            {/* COMPONENT TO HOLD INPUTBOX */}
+            <InputBox
                 formData={formData}
                 handleFormData={handleFormData}
-                inputRef={inputRef}
-            >The fibonacci value is: {fibonacciValue}</Fibonacci>
-
-            <p>The renders are: {renders.current}</p>
+            >{formData.name}</InputBox>
         </div>
     )
 }
