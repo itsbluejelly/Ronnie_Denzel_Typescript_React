@@ -1,18 +1,19 @@
-// IMPORTING VARIOUS TYPES
-import {ReactNode} from "react"
-import {AppFormData} from "./Types"
+// IMPORTING NECESSARY FILES
+    // IMPORTING MODULES
+import {ReactNode, ChangeEvent} from 'react'
+    // IMPORTING TYPES
+import {AppState} from './types'
 
-// A TYPE FOR THE COUNTERPROPS
-export type CounterProps = {
+// DECLARING PROPS FOR COUNTER COMPONENT
+export type CounterProps = { 
     children: ReactNode,
-    addCount: () => void,
-    subtractCount: () => void,
+    increaseCount: () => void,
+    decreaseCount: () => void,
 }
 
-// A TYPE FOR THE FIBONACCIPROPS
-export type FibonacciProps = {
-    children: ReactNode,
-    formData: AppFormData,
-    handleFormData: (e: React.ChangeEvent<HTMLInputElement>) => void
-    inputRef: React.MutableRefObject<HTMLInputElement | null>
+// DECLARING PROPS FOR IPUTBOX PROPS
+export type InputBoxProps = {
+    formData: AppState["formData"],
+    handleFormData: (e: ChangeEvent<HTMLInputElement>) => void,
+    children: ReactNode
 }
