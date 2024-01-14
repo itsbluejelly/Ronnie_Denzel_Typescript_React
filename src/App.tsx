@@ -1,76 +1,38 @@
 // IMPORTING NECESSARY FILES
-    // IMPORTING TYPES
-import {AppState} from "./types/types"
-import {AppStateReducerAction} from "./types/types"
-    // IMPORTING ENUMS
-import {APP_STATE_REDUCER_ACTION_TYPE} from "./types/enums"
-    // IMPORTING MODULES
-import React from "react"
+    // IMPORTING HOOKS
+import CountContextHook from "./hooks/CountContextHook"
+import FormDataContextHook from "./hooks/FormDataContextHook"
     // IMPORTING COMPONENTS
 import Counter from "./components/Counter"
-import InputBox from "./components/InputBox"
-
-// DECLARING AN INITIAL STATE FOR THE APP STATE
-const initialAppState: AppState = {
-    count: 0,
-    formData: { name: '' }
-}
-
-// DECLARING A REDUCER FUNCTION FOR THE APPSTATE
-function AppStateReducer(state: AppState, action: AppStateReducerAction): AppState{
-    switch(action.type){
-        case APP_STATE_REDUCER_ACTION_TYPE.INCREASE_COUNT:
-            return {...state, count: state.count + 1}
-        case APP_STATE_REDUCER_ACTION_TYPE.DECREASE_COUNT:
-            return {...state, count: state.count - 1}
-        case APP_STATE_REDUCER_ACTION_TYPE.UPDATE_NAME:
-            if(action.payLoad){
-                const {formData} = action.payLoad
-                return {...state, formData}
-            }else{
-                throw new Error("A payload property is required for you to update the name")
-            }
-        default:
-            return state
-    }
-}
+import InputHolder from "./components/InputHolder"
+    // IMPORTING MODULES
+import React from "react"
 
 // DECLARING A FUNCTION THAT RETURNS AN APP COMPONENT
 export default function App(){
-    const [{count, formData}, dispatch] = React.useReducer(AppStateReducer, initialAppState)
+    // OBTAINING THE VALIDATED COUNTCONTEXT FROM THE COUNTCONTEXTHOOK
+    const {count, dispatch} = CountContextHook()
+    // OBTAINING THE VALIDATED FORMDATACONTEXT FROM THE FORMDATACONTEXTHOOK
+    const {formData, dispatch: FormDataDispatch} = FormDataContextHook()
 
-    // DECLARING INCREASE AND DECREASE COUNT FUNCTIONS
-    const increaseCount: () => void = () => dispatch({ type: APP_STATE_REDUCER_ACTION_TYPE.INCREASE_COUNT })
-    const decreaseCount: () => void = () => dispatch({ type: APP_STATE_REDUCER_ACTION_TYPE.DECREASE_COUNT })
-    
+    // A FUNCTION TO HANDLE THE FORMDATA
     function handleFormData(e: React.ChangeEvent<HTMLInputElement>): void{
-        try{
-            const {value} = e.target
+        const {value} = e.target
 
-            dispatch({
-                type: APP_STATE_REDUCER_ACTION_TYPE.UPDATE_NAME,
-                payLoad: { formData: { "name": value }}
-            })
-        }catch(error){
-            if(error){
-                console.warn(`${(error as Error).name}: ${(error as Error).message}`)
-            }
-        }
+        FormDataDispatch({
+            type: "UPDATE_INPUT",
+            payload: { input: value }
+        })
     }
 
     return(
         <div>
-            {/* COUNTER COMPONENT TO HOLD COUNTER */}
-            <Counter
-                increaseCount={increaseCount}
-                decreaseCount={decreaseCount}
-            >Count is: {count}</Counter>
-
-            {/* COMPONENT TO HOLD INPUTBOX */}
-            <InputBox
+            <Counter handleCount={dispatch}>Count is: {count}</Counter>
+            
+            <InputHolder
                 formData={formData}
                 handleFormData={handleFormData}
-            >{formData.name}</InputBox>
+            >{formData.input}</InputHolder>
         </div>
     )
 }
