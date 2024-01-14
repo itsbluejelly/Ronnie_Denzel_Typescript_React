@@ -1,19 +1,24 @@
 // IMPORTING NECESSARY FILES
     // IMPORTING MODULES
-import {ReactNode, ChangeEvent} from 'react'
+import {ReactNode, Dispatch, ChangeEvent} from "react"
     // IMPORTING TYPES
-import {AppState} from './types'
+import {CountContextReducerActionType} from './Types'
 
-// DECLARING PROPS FOR COUNTER COMPONENT
-export type CounterProps = { 
+// DEFINING PROPS FOR THE COUNTER COMPONENT
+export type CounterProps = {
     children: ReactNode,
-    increaseCount: () => void,
-    decreaseCount: () => void,
+    handleCount: Dispatch<CountContextReducerActionType>
 }
 
-// DECLARING PROPS FOR IPUTBOX PROPS
-export type InputBoxProps = {
-    formData: AppState["formData"],
-    handleFormData: (e: ChangeEvent<HTMLInputElement>) => void,
-    children: ReactNode
+// DEFINING PROPS FOR THE COUNTERCONTEXTPROVIDER COMPONENT
+export type CounterContextProviderProps = { children: ReactNode }
+
+// DEFINING PROPS FOR THE INPUTHOLDER COMPONENT
+export type InputHolderProps = {
+    children: ReactNode,
+    formData: { input: string },
+    handleFormData: (e: ChangeEvent<HTMLInputElement>) => void
 }
+
+// DEFINING PROPS FOR THE FORMDATACONTEXTPROVIDER COMPONENT
+export type FormDataContextProviderProps = { children: ReactNode }

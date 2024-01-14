@@ -1,27 +1,31 @@
-// IMPORTING NECESSARY ENUMS
-import {APP_STATE_REDUCER_ACTION_TYPE} from './enums'
+// IMPORTING NECESSARY FILES
+    // IMPORTING ENUMS
+import {COUNT_CONTEXT_REDUCER_ACTION_TYPE} from "./Enums"
+    // IMPORTING MODULES
+import {Dispatch} from 'react'
 
-// DECLARING GENERICS
-    // A GENERIC TO CREATE A UNION OF OBJECTS FROM A GIVEN OBJECT
-type ObjectGenerator<Type extends object> = {
-    [key in keyof Type]: { [name in key]: Type[key] }
-}[keyof Type]
+// A TYPE FOR THE COUNTCONTEXTREDUCER ACTION
+export type CountContextReducerActionType = { type: COUNT_CONTEXT_REDUCER_ACTION_TYPE }
+// A TYPE FOR THE COUNTCONTEXTREDUCER STATE
+export type CountContextReducerStateType = { count: number }
 
-    // A GENERIC TO OMIT A CERTAIN FIELD FROM AN OBJECT, AND MAKE THE REST OPTIONAL
-type ObjectEmitter<Type extends object, specifiedKey extends keyof Type> = {
-    [key in keyof Type as key extends specifiedKey ? never : key]: Type[key]
-}
-
-// DECLARING A TYPE FOR THE APP STATE
-export type AppState = {
+// A TYPE FOR THE COUNT CONTEXT
+export type CountContextType = { 
     count: number,
-    formData: { name: string }
+    dispatch: Dispatch<CountContextReducerActionType>
 }
 
-// DECLARING A TYPE FOR THE PAYLOAD PROPERTY
-type PayLoad = ObjectGenerator<ObjectEmitter<AppState, 'count'>>
-// DECLARING A TYPE FOR THE APPSTATEREDUCERFUNCTION ACTION
-export type AppStateReducerAction = {
-    type: APP_STATE_REDUCER_ACTION_TYPE
-    payLoad?: PayLoad
+// A TYPE FOR THE FORMDATACONTEXTREDUCER ACTION
+export type FormDataContextReducerActionType = { 
+    type: "UPDATE_INPUT",
+    payload: { input: string } 
+}
+
+// A TYPE FOR THE FORMDATACONTEXTREDUCER STATE
+export type FormDataContextReducerStateType = { formData: { input: string }}
+
+// A TYPE FOR THE FORMDATA CONTEXT
+export type FormDataContextType = { 
+    formData: { input: string },
+    dispatch: Dispatch<FormDataContextReducerActionType>
 }

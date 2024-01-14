@@ -6,10 +6,17 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
   // IMPORTING CSS FILES
 import './index.css'
+  // IMPORTING NECESSARY CONTEXT
+import CountContextProvider from './contexts/CountContext.tsx'
+import FormDataContextProvider from './contexts/FormDataContext.tsx'
 
 // CREATING A ROOT INTO THE DOM
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <App/>
+    <CountContextProvider>
+      <FormDataContextProvider>
+        <App/>
+      </FormDataContextProvider>
+    </CountContextProvider>
   </React.StrictMode>,
 )
