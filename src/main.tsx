@@ -1,22 +1,22 @@
 // IMPORTING NECESSARY FILES
-  // IMPORTING NECESSARY MODULES
+    // IMPORTING NECESSARY MODULES
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-  // IMPORTING NECESSARY COMPONENTS
+    // IMPORTING NECESSARY COMPONENTS
 import App from './App.tsx'
-  // IMPORTING CSS FILES
+    // IMPORTING CSS FILES
 import './index.css'
-  // IMPORTING NECESSARY CONTEXT
-import CountContextProvider from './contexts/CountContext.tsx'
-import FormDataContextProvider from './contexts/FormDataContext.tsx'
+    // IMPORTING NECESSARY CONTEXTS
+import ProductsContextProvider from './contexts/ProductsContext.tsx'
+import CartContextProvider from './contexts/CartContext.tsx'
 
 // CREATING A ROOT INTO THE DOM
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <CountContextProvider>
-      <FormDataContextProvider>
-        <App/>
-      </FormDataContextProvider>
-    </CountContextProvider>
+    <ProductsContextProvider>
+        <CartContextProvider>
+            <App/>
+        </CartContextProvider>
+    </ProductsContextProvider>
   </React.StrictMode>,
 )

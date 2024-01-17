@@ -27,6 +27,18 @@ The project is public and can be cloned by anyone, but aside from the first comm
 >| **Branch-01**  | Commit 1  |
 >| **Branch-02**  | Commit 2  |
 
+As for the main branch, it already has a project website using typescript and react, courtesy of Dave Gray's tutorial, and for you to run it you just have to follow the instructions below as it is not deployed:
+
+>1. Switch to the main branch
+>2. In your favourite IDE and type in
+`npm run dev`
+>3. Next, open another split terminal and type in
+`npm run server`
+
+It's a simple website that uses [json-server](https://github.com/typicode/json-server) to create a fake API from the database directory, meant to display products and allow one to purchase them
+
+*Spoiler: Nothing happens once you purchase them*😅
+
 ## Credits
 
 The credits for this repository are all listed below:

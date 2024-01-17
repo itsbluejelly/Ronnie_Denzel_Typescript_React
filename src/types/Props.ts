@@ -1,24 +1,45 @@
 // IMPORTING NECESSARY FILES
     // IMPORTING MODULES
-import {ReactNode, Dispatch, ChangeEvent} from "react"
+import {ReactNode} from "react"
+    // IMPORTING GENERICS
+import {Prettier, ObjectEmitter, ObjectFilterer} from "./Generics"
     // IMPORTING TYPES
-import {CountContextReducerActionType} from './Types'
+import {ProductType, CartContextReducerActionType, CartContextType, CartType} from "./Types"
 
-// DEFINING PROPS FOR THE COUNTER COMPONENT
-export type CounterProps = {
-    children: ReactNode,
-    handleCount: Dispatch<CountContextReducerActionType>
+// DECLARING A PROP FOR THE PRODUCTSCONTEXTPROVIDER COMPONENT
+export type ProductsContextProviderProps = { children: ReactNode }
+// DECLARING A PROP FOR THE CARTCONTEXTPROVIDER COMPONENT
+export type CartContextProviderProps = ProductsContextProviderProps
+
+// DECLARING A PROP FOR THE NAVBAR COMPONENT
+export type NavbarProps = {
+    viewCart: boolean;
+    handleViewCart: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// DEFINING PROPS FOR THE COUNTERCONTEXTPROVIDER COMPONENT
-export type CounterContextProviderProps = { children: ReactNode }
+// DECLARING A PROP FOR THE HEADER COMPONENT
+export type HeaderProps = Prettier<NavbarProps & { 
+    totalPrice: string,
+    totalQuantity: number
+}>
 
-// DEFINING PROPS FOR THE INPUTHOLDER COMPONENT
-export type InputHolderProps = {
-    children: ReactNode,
-    formData: { input: string },
-    handleFormData: (e: ChangeEvent<HTMLInputElement>) => void
+// DECLARING A PROP FOR THE FOOTER COMPONENT
+export type FooterProps = ObjectEmitter<HeaderProps, "handleViewCart">
+
+// DECLARING A PROP FOR THE PRODUCT COMPONENT
+export type ProductProps = {
+    product: ProductType,
+    handleProduct: React.Dispatch<CartContextReducerActionType>,
+    inCart: boolean,
+    handleIsCleared: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-// DEFINING PROPS FOR THE FORMDATACONTEXTPROVIDER COMPONENT
-export type FormDataContextProviderProps = { children: ReactNode }
+// DECLARING A PROP FOR THE CART COMPONENT
+export type CartProps = Prettier<ObjectEmitter<CartContextType, "cart"> & { 
+    isCleared: boolean,
+    children: JSX.Element[],
+    handleIsCleared: React.Dispatch<React.SetStateAction<boolean>>
+}>
+
+// DECLARING A PROP FOR THE CARTLINEITEM COMPONENT
+export type CartLineItemProps = Prettier<ObjectFilterer<CartContextType, "dispatch"> & { item: CartType }>
